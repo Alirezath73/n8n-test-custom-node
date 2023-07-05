@@ -22,8 +22,16 @@ export class ExampleNode implements INodeType {
 			// Node properties which the user gets displayed and
 			// can change on the node.
 			{
-				displayName: 'My String',
-				name: 'myString',
+				displayName: 'My First String',
+				name: 'myFirstString',
+				type: 'string',
+				default: '',
+				placeholder: 'Placeholder value',
+				description: 'The description text',
+			},
+			{
+				displayName: 'My Second String',
+				name: 'mySecondString',
 				type: 'string',
 				default: '',
 				placeholder: 'Placeholder value',
@@ -40,17 +48,21 @@ export class ExampleNode implements INodeType {
 		const items = this.getInputData();
 
 		let item: INodeExecutionData;
-		let myString: string;
+		let myFirstString: string;
+		let mySecondString: string;
 
 		// Iterates over all input items and add the key "myString" with the
 		// value the parameter "myString" resolves to.
 		// (This could be a different value for each item in case it contains an expression)
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			try {
-				myString = this.getNodeParameter('myString', itemIndex, '') as string;
+				myFirstString = this.getNodeParameter('myFirstString', itemIndex, '') as string;
+				mySecondString = this.getNodeParameter('mySecondString', itemIndex, '') as string;
+
 				item = items[itemIndex];
 
-				item.json['myString'] = myString;
+				item.json['MyFirstString'] = myFirstString;
+				item.json['MySecondString'] = mySecondString;
 			} catch (error) {
 				// This node should never fail but we want to showcase how
 				// to handle errors.
