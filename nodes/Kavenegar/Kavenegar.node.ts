@@ -65,58 +65,101 @@ export class Kavenegar implements INodeType {
 						routing: {
 							request: {
 								method: 'GET',
-								url: '/v1/7571313234546652435734733746664F316130664C30326153704A7436384C2B/sms/send.json',
 							},
 						},
 					},
 				],
 				default: 'send',
 			},
-
-			// Optional/additional fields will go here
 			{
-				displayName: 'Additional Fields',
-				name: 'additionalFields',
-				type: 'collection',
-				default: {},
-				placeholder: 'Add Field',
+				displayName: 'Receptor',
+				description: 'Receptor',
+				required: true,
+				name: 'receptor',
+				type: 'string',
+				default: '',
 				displayOptions: {
 					show: {
 						resource: ['sendSimpleSms'],
-						operation: ['send'],
 					},
 				},
-				options: [
-					{
-						displayName: 'Receptor',
-						name: 'receptor',
-						type: 'string',
-						default: '',
-						routing: {
-							request: {
-								// You've already set up the URL. qs appends the value of the field as a query string
-								qs: {
-									receptor: '={{$value}}',
-								},
-							},
+				routing: {
+					request: {
+						url: '=/v1/{{$credentials.apiKey}}/sms/send.json',
+						// You've already set up the URL. qs appends the value of the field as a query string
+						qs: {
+							receptor: '={{$value}}',
 						},
 					},
-					{
-						displayName: 'Message',
-						name: 'message',
-						type: 'string',
-						default: '',
-						routing: {
-							request: {
-								// You've already set up the URL. qs appends the value of the field as a query string
-								qs: {
-									message: '={{$value}}',
-								},
-							},
-						},
-					},
-				],
+				},
 			},
+			{
+				displayName: 'Message',
+				description: 'Message',
+				required: true,
+				name: 'message',
+				type: 'string',
+				default: '',
+				displayOptions: {
+					show: {
+						resource: ['sendSimpleSms'],
+					},
+				},
+				routing: {
+					request: {
+						// You've already set up the URL. qs appends the value of the field as a query string
+						qs: {
+							message: '={{$value}}',
+						},
+					},
+				},
+			},
+
+			// Optional/additional fields will go here
+			// {
+			// 	displayName: 'Additional Fields',
+			// 	name: 'additionalFields',
+			// 	type: 'collection',
+			// 	default: {},
+			// 	placeholder: 'Add Field',
+			// 	displayOptions: {
+			// 		show: {
+			// 			resource: ['sendSimpleSms'],
+			// 			operation: ['send'],
+			// 		},
+			// 	},
+			// 	options: [
+			// 		{
+			// 			displayName: 'Receptor',
+			// 			name: 'receptor',
+			// 			type: 'string',
+			// 			default: '',
+			// 			routing: {
+			// 				request: {
+			// 					// You've already set up the URL. qs appends the value of the field as a query string
+			// 					qs: {
+			// 						receptor: '={{$value}}',
+			// 					},
+			// 				},
+			// 			},
+			// 		},
+			// 		{
+			// 			displayName: 'Message',
+			// 			name: 'message',
+			// 			type: 'string',
+			// 			default: '',
+			// 			routing: {
+			// 				request: {
+			// 					// You've already set up the URL. qs appends the value of the field as a query string
+			// 					qs: {
+			// 						message: '={{$value}}',
+			// 					},
+			// 				},
+			// 			},
+			// 		},
+			// 	],
+			// },
 		],
 	};
 }
+
